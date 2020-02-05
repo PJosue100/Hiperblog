@@ -1,0 +1,124 @@
+Curso de Git
+Que he aprendido:
+--Que si coloco cd en la linea de comandos colocara el puntero en la carpeta home del Usuario y se representa con una ~ (se denomina virgulill)
+----Existe un area STAGING en la cual se agregan todos los archivos a rastrear para luego pasarlos al repositorio local 
+--- si no se coloca en esta area git no podra ver lso cambios se hace con un                                    git add
+---si quiero ver todos los commmits puedo usar el                                                               git log 
+--- si quiero ver el estado de todos los archivos rastreados coloco el comando                                  git status 
+----puedo crear ramas para diferentes fines en el proyecto  normalmente existente 3:
+    MASTER, DEVELOPMENT, HOTFIXING
+    PERO puede haber tantas como uno decida......
+----- git rm Y git rm --cached (elimina los cambios que se encuentran en memoria ram del documento(STAGING))
+---cuando en los comandos se coloca solo un guion se va a colocar una abreviatura y si coloco dos guiones voy a colocar una palabra!!!!!!!!!!
+-----con git commit hago que el archivo quede en el disco en el repositorio local
+-----para ver la configuracion del git  usar el comando  ----------- git config --list
+-----git config --global user.name sirve para colocar un usuario responsable de nuestros cambios
+-----git config --global user.email sirve para colocar el email del usuario responsable de nuestros cambios
+
+---cat sirve para ver el contenido de un archivo de texto 
+----La etiqueta HEAD indica la ultima version del repositorio de la rama MASTER
+---git show sirve para ver los cambios que ha tenido un archivo con el paso del tiempo....
+
+
+----git reset "commit " --hard sirve para volver al repositorio correspondiente al commit asignado
+----git reset "commit " --soft sirve para volver al repositorio correspondiente al commit asignado pero manteniendo 
+----git diff sirve para ver las diferencias entre el directorio actual y el area STAGING
+---git log --stat sirve para ver las inserciones y deletes que existen entre cada commit
+---git commit -am "mensaje"      <---------------------------sirve para hacer git add y commit en un solo comando solo sirve si no hay archivos nuevos que
+   que todavia no esten rastreados ..........
+------Vamos bien WOOOWOOOOWOOOOOOOWOOOO
+----git-checkout - Cambia ramas o restaura archivos de �rbol de trabajo Eje.
+	Movimientos de commits
+		git checkout "el id del commit al que necesitemos regresar" "el archivo que necesitamos visualizar"; con esto el archivo regresa a un estado anterior
+		pero para regresar al commit actual usamos git checkout "rama actual" "nombre del archivo en cuestion "
+	Movimiento entre ramas 
+		git checkout "nombre de la rama a la q necesitamos cambiar" 
+-----git merge -m "mensaje" sirve para fusionar dos ramas uno se coloca en la rama en la que desea juntar los datos 
+	ejecuta el comando y se trae los commits de todas las ramas y los enlista en orden de tiempo. La otra rama queda
+	como si nada porque no sufre ningun cambio tra usar el merge El merge finaliza con un commit 
+	La estructura de un conflict por merge es:
+	<<<<<<<HEAD de la rama principal
+	opcion a
+	=======
+	opcion b
+	>>>>>>>>> rama a fusionar
+
+-----git remote add origin "url del repositorio remoto de github" esto sirve para crear una asociacion entre el repositorio
+	local y el remoto
+	git remote sirve para ver las ramas remotas
+	git remote -v sirve para ver la url del repositorio remoto
+	
+----git push origin(rama remota) master(rama local) sirve para subir mis cambios al repositorio remoto
+----git pull origin master sirve para traer los datos desde el repositorio remoto hacer merge con el local
+
+
+
+-----error: failed to push some refs to 'https://github.com/PJosue100/Hiperblog.git'
+hint: Updates were rejected because the remote contains work that you do
+hint: not have locally. This is usually caused by another repository pushing
+hint: to the same ref. You may want to first integrate the remote changes
+hint: (e.g., 'git pull ...') before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+
+EL ERROR DE ARRIBA ES OCACIONADO PORQUE SE ESTA TRATANDO DE HACER UN PUSH SIN HABER BAJADO LOS CAMBIOS DEL REPOSITORIO 
+REMOTO Y ES PROBABLE QUE HAYA UN ERROR AL SUBIRLOS. SE SOLUCIONA HACIENDO UN PULL AL REPOSITORIO REMOTO(BAJAR Y FUSIONAR 
+LOS CAMBIOS CON MI RAMA PRINCIAPAL)
+
+
+
+----$ git pull origin master
+warning: no common commits
+remote: Enumerating objects: 3, done.
+remote: Counting objects: 100% (3/3), done.
+remote: Compressing objects: 100% (2/2), done.
+remote: Total 3 (delta 0), reused 0 (delta 0), pack-reused 0
+Unpacking objects: 100% (3/3), done.
+From https://github.com/PJosue100/Hiperblog
+ * branch            master     -> FETCH_HEAD
+ * [new branch]      master     -> origin/master
+fatal: refusing to merge unrelated histories
+
+---EL ERROR DE ARRIBA OCURRE DEBIDO A QUE LA HISTORIO(ES UN GRUPO DE COMMITS) DE MI REPOSITORIO LOCAL Y REMOTO SON TOTALMENTE
+ diferentes SE ARREGLA CON:
+$ git pull origin master --allow-unrelated-histories
+
+----git config -l este comando sirve para ver toda la configuracion de git 
+----Comandos para crear la llave ssh
+
+	Primer paso: Generar tus llaves SSH. Recuerda que es muy buena idea proteger tu llave privada con una contraseña.
+
+		ssh-keygen -t rsa -b 4096 -C "tu@email.com"
+
+	Segundo paso: Terminar de configurar nuestro sistema.
+
+		En Windows y Linux:
+
+			# Encender el "servidor" de llaves SSH de tu computadora:
+			eval $(ssh-agent -s)
+
+			# Añadir tu llave SSH a este "servidor":
+			ssh-add ruta-donde-guardaste-tu-llave-privada
+		
+		En Mac:
+
+			# Encender el "servidor" de llaves SSH de tu computadora:
+			eval "$(ssh-agent -s)"
+
+			# Si usas una versión de OSX superior a Mac Sierra (v10.12)
+			# debes crear o modificar un archivo "config" en la carpeta
+			# de tu usuario con el siguiente contenido (ten cuidado con
+			# las mayúsculas):
+			Host *
+					AddKeysToAgent yes
+					UseKeychain yes
+					IdentityFile ruta-donde-guardaste-tu-llave-privada
+
+			# Añadir tu llave SSH al "servidor" de llaves SSH de tu
+			# computadora (en caso de error puedes ejecutar este
+			# mismo comando pero sin el argumento -K):
+			ssh-add -K ruta-donde-guardaste-tu-llave-privada
+
+---git remote set-url origin
+
+
+
